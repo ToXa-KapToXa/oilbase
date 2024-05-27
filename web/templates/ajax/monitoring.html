@@ -1,0 +1,34 @@
+{% for i in range(f_list.__len__()) %}
+    <div class="blue-div blue-div-{{ i + 1 }} m-auto">Давл.={{ f_list[i] }}</div>
+    <div class="green-div green-div-{{ i + 1 }} m-auto">Темп.={{ t_list[i] }}</div>
+    <div class="orange-div orange-div-{{ i + 1 }} m-auto">Давл.={{ p_list[i] }}</div>
+    <div class="gray-div gray-div-{{ i + 1 }} m-auto">{{ gray_list[i] }}</div>
+    <div class="orange-div orange-div-{{ i + 8 }} m-auto">Давл.={{ p2_list[i] }}</div>
+    <div class="green-div green-div-{{ i + 8 }} m-auto">Темп.={{ t2_list[i] }}</div>
+    <div class="gray-div gray-blue-div-{{ i + 1 }} m-auto"><b>{{ levels_reservoirs[i] }}</b></div>
+    <div class="progress-bar progress-{{ i + 1 }}">
+        <div class="progress" style="height: {{ levels_reservoirs[i] }}%;"></div>
+    </div>
+    <div class="purple-div purple-div-{{ i + 1 }} m-auto">{{ purple_list[i][0] }}</div>
+    <div class="purple-div purple-div-{{ i + 8 }} m-auto">{{ purple_list[i][1] }}</div>
+{% endfor %}
+{% for i in range(2) %}
+    <div class="green-div green-div-{{ i + 15 }} m-auto">Темп.={{ t_all_list[i] }}</div>
+    <div class="blue-div blue-div-{{ i + 8 }} m-auto">Давл.={{ f_all_list[i] }}</div>
+    <div class="light-yellow-div light-yellow-div-{{ i + 1 }}">{{ info_list[i][0] }} зад.<br>{{ info_list[i][1] }} об/мин<br>{{ info_list[i][2] }} А</div>
+{% endfor %}
+{% for i in range(3) %}
+    <div class="gray-div gray-blue-div-{{ i + 8 }} m-auto"><b>{{ levels_reservoirs_all[i] }}</b></div>
+    {% if i % 2 == 0 %}
+        <div class="progress-bar-all progress-all-{{ i }}">
+            <div class="progress" style="height: {{ levels_reservoirs_all[i] }}%;"></div>
+        </div>
+    {% else %}
+        <div class="progress-bar-all progress-all-{{ i }}" style="height: 57px;">
+            <div class="progress" style="height: {{ levels_reservoirs_all[i] }}%;"></div>
+        </div>
+    {% endif %}
+{% endfor %}
+{% for i in range(yellow_list.__len__()) %}
+    <div class="yellow-div yellow-div-{{ i + 1 }} m-auto">{{ yellow_list[i] }}</div>
+{% endfor %}

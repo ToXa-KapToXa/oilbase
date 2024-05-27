@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="grid grid-body col-12">
+            <h2 class="grid-title" style="text-align: center; color: #fff">Добавление резервуара</h2>
+            <div class="item-wrapper col-12">
+                <form method="post" class="form-group showcase_row_area accordion-content">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="name_of_reservoir">
+                                <b style="color: red">*</b> <b style="color: #e5e5e5;">Название</b>
+                            </label>
+                            <input class="form-control mb-2" required type="text" id="name_of_reservoir" name="name_of_reservoir"/>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="capacity">
+                                <b style="color: red">*</b> <b style="color: #e5e5e5;">Максимальная вместимость, тонна</b>
+                            </label>
+                            <input id="capacity" placeholder="" required type="number" max="30000" class="form-control mb-2" name="capacity"/>
+                            <label for="fullness">
+                                <b style="color: #e5e5e5;">Текущая заполненность, тонна</b>
+                            </label>
+                            <input id="fullness" placeholder="" type="number" max="30000" class="form-control mb-2" name="fullness"/>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <label for="pressure">
+                                <b style="color: red">*</b> <b style="color: #e5e5e5;">Давление, бар</b>
+                            </label>
+                            <input id="pressure" placeholder="" required type="text" class="form-control mb-2" name="pressure"/>
+                            <label for="include">
+                                <b style="color: #e5e5e5;">Содержимое</b>
+                            </label>
+                            <select class="custom-select" value="" name="include" id="include">
+                                <option value="gasoline">Бензин</option>
+                                <option value="diesel">Дизельное топливо</option>
+                                <option value="masut">Мазут</option>
+                                <option value="solar">Солярное масло</option>
+                                <option value="kerosene">Керосин</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <b style="color: red">*</b> <i style="color: #e5e5e5;"> - Обязательное поле.</i>
+                        </div>
+                        <div class="col-12 mx-auto">
+                            <button type="submit" class="btn btn-dark btn-block mt-2" name="button_add_reservoir">
+                                Добавить резервуар
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

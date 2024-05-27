@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="grid grid-body col-4">
+            <h2 class="grid-title" style="color: #fff; text-align: center">Текущие запасы, тонна</h2>
+            <div class="item-wrapper">
+                <canvas id="chartjs-doughnut-chart" width="600" height="400"></canvas>
+            </div>
+        </div>
+
+        <div class="grid grid-body col-8 ml-4">
+            <h2 class="grid-title" style="color: #fff; text-align: center">Объемы поступления и отгрузки всех нефтепродуктов, тонна</h2>
+            <div class="item-wrapper">
+                <canvas id="bar-chart" width="600" height="300"></canvas>
+            </div>
+        </div>
+
+        <div class="grid grid-body col-8">
+        <div style="text-align: center">
+            <b style="color: #e5e5e5;">Данные по резервуару</b>
+        </div>
+            <form method="post" class="form-group showcase_row_area sss accordion-content" style="margin-bottom: 0; margin-top: 0">
+                <label for="reservoir_data">
+                </label>
+                <select class="custom-select col-8" name="reservoir_data" id="reservoir_data">
+                    {% for reservoir in reservoirs %}
+                        {% if reservoir['name'] == chosen_reservoir %}
+                            <option selected value="{{ reservoir['id'] }}_{{ reservoir['name'] }}">{{ reservoir['name'] }}</option>
+                        {% else %}
+                            <option value="{{ reservoir['id'] }}_{{ reservoir['name'] }}">{{ reservoir['name'] }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-dark btn-block col-4 mx-auto" name="choose_reservoir_data">
+                    Выбрать
+                </button>
+            </form>
+            <div class="item-wrapper col-12">
+                <div class="table-responsive">
+                    <table class="table info-table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>F</th>
+                                <th>T1</th>
+                                <th>T2</th>
+                                <th>P1</th>
+                                <th>P2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in data_table %}
+                            <tr>
+                                <td>{{ data['date'] }}</td>
+                                <td>{{ data['f'] }}</td>
+                                <td>{{ data['t1'] }}</td>
+                                <td>{{ data['t2'] }}</td>
+                                <td>{{ data['p1'] }}</td>
+                                <td>{{ data['p2'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-body col-4 ml-4">
+            <h2 class="grid-title" style="color: #fff; text-align: center">Выгрузка данных</h2>
+            <form method="post" class="form-group showcase_row_area accordion-content">
+                <div class="item-wrapper">
+                    <label for="start">
+                        <b style="color: #fff">Данные в период с:</b>
+                    </label>
+                    <input type="date" id="start" required name="trip-start" value="{{ today_date }}" min="2023-04-17" max="{{ today_date }}" class="form-control mb-2"/>
+                    <label for="end" class="mt-3">
+                        <b style="color: #fff">до:</b>
+                    </label>
+                    <input type="date" required id="end" name="trip-end" value="{{ today_date }}" min="2018-01-01" max="{{ today_date }}" class="form-control mb-2" />
+                    <button type="submit" class="btn btn-dark btn-block mt-2 mt-4" name="create_report">
+                        Выгрузить
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/static/js/vendors/chartjs/Chart.min.js"></script>
+    <script src="/static/js/charts/chartjs.addon.js"></script>
+    <script>
+        var DoughnutData = {
+            datasets: [{
+                data: {{ doughnut_data }},
+                backgroundColor: ["#1F2544", "#474F7A", "#81689D", "#FFD0EC", "#5F8670"],
+                borderColor: ["#1F2544", "#474F7A", "#81689D", "#FFD0EC", "#5F8670"],
+                borderWidth: ["#1F2544", "#474F7A", "#81689D", "#FFD0EC", "#5F8670"],
+            }],
+            labels: {{ doughnut_labels | tojson }}
+        };
+        var DoughnutOptions = {
+            legend: {
+                labels: {
+                    fontColor: 'white' // Устанавливаем желаемый цвет меток
+                }
+            },
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var dataset = data.datasets[tooltipItem.datasetIndex];
+                        var total = {{ doughnut_total }};
+                        var label = data.labels[tooltipItem.index];
+                        var currentValue = dataset.data[tooltipItem.index];
+                        var percentage = Math.floor(((currentValue / total) * 100) + 0.5);
+                        return label + ": " + currentValue + ' (' + percentage + '%)';
+                    }
+                }
+            }
+        };
+        var doughnutChartCanvas = document.getElementById("chartjs-doughnut-chart").getContext("2d");
+        var doughnutChart = new Chart(doughnutChartCanvas, {
+            type: 'doughnut',
+            data: DoughnutData,
+            options: DoughnutOptions
+        });
+    </script>
+    <script>
+        // Получаем контекст canvas
+        var ctx = document.getElementById('bar-chart').getContext('2d');
+
+        // Создаем новый объект гистограммы
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: {{ diagram_labels | tojson}},
+                datasets: [{
+                    label: 'Поступление',
+                    data: {{ diagram_data_in }},
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)', // Цвет столбцов
+                    borderColor: 'rgba(54, 162, 235, 1)', // Цвет обводки столбцов
+                    borderWidth: 1
+                },
+                {
+                    label: 'Отгрузка',
+                    data: {{ diagram_data_out }},
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)', // Цвет столбцов для второй переменной
+                    borderColor: 'rgba(255, 99, 132, 1)', // Цвет обводки столбцов для второй переменной
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    labels: {
+                        fontColor: 'white' // Устанавливаем желаемый цвет меток
+                    }
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            fontColor: 'white'
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            fontColor: 'white' // Цвет категорий по оси X (месяцев)
+                        }
+                    }],
+                    y: {
+                        beginAtZero: true,
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}

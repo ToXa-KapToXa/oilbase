@@ -1,0 +1,619 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="grid grid-body divimg col-10 m-auto" id="update">
+            {% for i in range(f_list.__len__()) %}
+                <div class="blue-div blue-div-{{ i + 1 }} m-auto">Давл.={{ f_list[i] }}</div>
+                <div class="green-div green-div-{{ i + 1 }} m-auto">Темп.={{ t_list[i] }}</div>
+                <div class="orange-div orange-div-{{ i + 1 }} m-auto">Давл.={{ p_list[i] }}</div>
+                <div class="gray-div gray-div-{{ i + 1 }} m-auto">{{ gray_list[i] }}</div>
+                <div class="orange-div orange-div-{{ i + 8 }} m-auto">Давл.={{ p2_list[i] }}</div>
+                <div class="green-div green-div-{{ i + 8 }} m-auto">Темп.={{ t2_list[i] }}</div>
+                <div class="gray-div gray-blue-div-{{ i + 1 }} m-auto"><b>{{ levels_reservoirs[i] }}</b></div>
+                <div class="progress-bar progress-{{ i + 1 }}">
+                    <div class="progress" style="height: {{ levels_reservoirs[i] }}%;"></div>
+                </div>
+                <div class="purple-div purple-div-{{ i + 1 }} m-auto">{{ purple_list[i][0] }}</div>
+                <div class="purple-div purple-div-{{ i + 8 }} m-auto">{{ purple_list[i][1] }}</div>
+            {% endfor %}
+            {% for i in range(2) %}
+                <div class="green-div green-div-{{ i + 15 }} m-auto">Темп.={{ t_all_list[i] }}</div>
+                <div class="blue-div blue-div-{{ i + 8 }} m-auto">Давл.={{ f_all_list[i] }}</div>
+                <div class="light-yellow-div light-yellow-div-{{ i + 1 }}">{{ info_list[i][0] }} зад.<br>{{ info_list[i][1] }} об/мин<br>{{ info_list[i][2] }} А</div>
+            {% endfor %}
+            {% for i in range(3) %}
+                <div class="gray-div gray-blue-div-{{ i + 8 }} m-auto"><b>{{ levels_reservoirs_all[i] }}</b></div>
+                {% if i % 2 == 0 %}
+                    <div class="progress-bar-all progress-all-{{ i }}">
+                        <div class="progress" style="height: {{ levels_reservoirs_all[i] }}%;"></div>
+                    </div>
+                {% else %}
+                    <div class="progress-bar-all progress-all-{{ i }}" style="height: 57px;">
+                        <div class="progress" style="height: {{ levels_reservoirs_all[i] }}%;"></div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            {% for i in range(yellow_list.__len__()) %}
+                <div class="yellow-div yellow-div-{{ i + 1 }} m-auto">{{ yellow_list[i] }}</div>
+            {% endfor %}
+        </div>
+    </div>
+
+<style>
+    .blue-div {
+        position: absolute;
+        width: 74px;
+        height: 17px;
+        font-size: 12px;
+        background-color: #2f83c9;
+        color: #e1e1e1;
+        text-align: center;
+    }
+
+    .blue-div-1 {
+        top: 68px; /* расположение блока сверху */
+        left: 104px; /* расположение блока слева */
+    }
+
+    .blue-div-2 {
+        top: 68px; /* расположение блока сверху */
+        left: 253px; /* расположение блока слева */
+    }
+
+    .blue-div-3 {
+        top: 68px; /* расположение блока сверху */
+        left: 402px; /* расположение блока слева */
+    }
+
+    .blue-div-4 {
+        top: 66px; /* расположение блока сверху */
+        left: 548px; /* расположение блока слева */
+    }
+
+    .blue-div-5 {
+        top: 68px; /* расположение блока сверху */
+        left: 687px; /* расположение блока слева */
+    }
+
+    .blue-div-6 {
+        top: 68px; /* расположение блока сверху */
+        left: 836px; /* расположение блока слева */
+    }
+
+    .blue-div-7 {
+        top: 66px; /* расположение блока сверху */
+        left: 982px; /* расположение блока слева */
+    }
+
+    .blue-div-8 {
+        top: 508px; /* расположение блока сверху */
+        left: 80px; /* расположение блока слева */
+    }
+
+    .blue-div-9 {
+        top: 534px; /* расположение блока сверху */
+        left: 493px; /* расположение блока слева */
+    }
+</style>
+
+<style>
+    .green-div {
+        position: absolute;
+        width: 74px;
+        height: 17px;
+        font-size: 12px;
+        background-color: #61a21d;
+        color: #090909;
+        text-align: center;
+    }
+
+    .green-div-1 {
+        top: 85px; /* расположение блока сверху */
+        left: 104px; /* расположение блока слева */
+    }
+
+    .green-div-2 {
+        top: 85px; /* расположение блока сверху */
+        left: 253px; /* расположение блока слева */
+    }
+
+    .green-div-3 {
+        top: 85px; /* расположение блока сверху */
+        left: 402px; /* расположение блока слева */
+    }
+
+    .green-div-4 {
+        top: 83px; /* расположение блока сверху */
+        left: 548px; /* расположение блока слева */
+    }
+
+    .green-div-5 {
+        top: 85px; /* расположение блока сверху */
+        left: 687px; /* расположение блока слева */
+    }
+
+    .green-div-6 {
+        top: 85px; /* расположение блока сверху */
+        left: 836px; /* расположение блока слева */
+    }
+
+    .green-div-7 {
+        top: 83px; /* расположение блока сверху */
+        left: 982px; /* расположение блока слева */
+    }
+
+    .green-div-8 {
+        top: 356px; /* расположение блока сверху */
+        left: 152px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .green-div-9 {
+        top: 356px; /* расположение блока сверху */
+        left: 300px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .green-div-10 {
+        top: 356px; /* расположение блока сверху */
+        left: 446px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .green-div-11 {
+        top: 356px; /* расположение блока сверху */
+        left: 592px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .green-div-12 {
+        top: 356px; /* расположение блока сверху */
+        left: 735px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .green-div-13 {
+        top: 356px; /* расположение блока сверху */
+        left: 880px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .green-div-14 {
+        top: 356px; /* расположение блока сверху */
+        left: 1027px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .green-div-15 {
+        top: 397px; /* расположение блока сверху */
+        left: 45px; /* расположение блока слева */
+    }
+
+    .green-div-16 {
+        top: 439px; /* расположение блока сверху */
+        left: 45px; /* расположение блока слева */
+    }
+</style>
+
+<style>
+    .orange-div {
+        position: absolute;
+        width: 70px;
+        height: 17px;
+        font-size: 12px;
+        background-color: #e69e85;
+        color: #090909;
+        text-align: center;
+    }
+
+    .orange-div-1 {
+        top: 127px; /* расположение блока сверху */
+        left: 131px; /* расположение блока слева */
+    }
+
+    .orange-div-2 {
+        top: 127px; /* расположение блока сверху */
+        left: 280px; /* расположение блока слева */
+    }
+
+    .orange-div-3 {
+        top: 127px; /* расположение блока сверху */
+        left: 426px; /* расположение блока слева */
+    }
+
+    .orange-div-4 {
+        top: 127px; /* расположение блока сверху */
+        left: 572px; /* расположение блока слева */
+    }
+
+    .orange-div-5 {
+        top: 127px; /* расположение блока сверху */
+        left: 714px; /* расположение блока слева */
+    }
+
+    .orange-div-6 {
+        top: 127px; /* расположение блока сверху */
+        left: 860px; /* расположение блока слева */
+    }
+
+    .orange-div-7 {
+        top: 125px; /* расположение блока сверху */
+        left: 1006px; /* расположение блока слева */
+    }
+
+    .orange-div-8 {
+        top: 339px; /* расположение блока сверху */
+        left: 152px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .orange-div-9 {
+        top: 339px; /* расположение блока сверху */
+        left: 300px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .orange-div-10 {
+        top: 339px; /* расположение блока сверху */
+        left: 446px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .orange-div-11 {
+        top: 339px; /* расположение блока сверху */
+        left: 592px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .orange-div-12 {
+        top: 339px; /* расположение блока сверху */
+        left: 735px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .orange-div-13 {
+        top: 339px; /* расположение блока сверху */
+        left: 880px; /* расположение блока слева */
+        width: 70px;
+    }
+
+    .orange-div-14 {
+        top: 339px; /* расположение блока сверху */
+        left: 1027px; /* расположение блока слева */
+        width: 70px;
+    }
+</style>
+
+<style>
+    .divimg {
+        background-image:url('../static/images/schema.jpg');
+        height: 600px;
+        background-size:100% 100%;
+    }
+
+    .gray-div {
+        position: absolute;
+        width: 54px;
+        height: 17px;
+        font-size: 12px;
+        color: #090909;
+    }
+
+    .gray-div-1 {
+        top: 164px; /* расположение блока сверху */
+        left: 157px; /* расположение блока слева */
+    }
+
+    .gray-div-2 {
+        top: 164px; /* расположение блока сверху */
+        left: 306px; /* расположение блока слева */
+    }
+
+    .gray-div-3 {
+        top: 164px; /* расположение блока сверху */
+        left: 453px; /* расположение блока слева */
+    }
+
+    .gray-div-4 {
+        top: 161px; /* расположение блока сверху */
+        left: 598px; /* расположение блока слева */
+    }
+
+    .gray-div-5 {
+        top: 164px; /* расположение блока сверху */
+        left: 740px; /* расположение блока слева */
+    }
+
+    .gray-div-6 {
+        top: 164px; /* расположение блока сверху */
+        left: 886px; /* расположение блока слева */
+    }
+
+    .gray-div-7 {
+        top: 161px; /* расположение блока сверху */
+        left: 1033px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-1 {
+        top: 380px; /* расположение блока сверху */
+        left: 135px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-2 {
+        top: 380px; /* расположение блока сверху */
+        left: 285px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-3 {
+        top: 380px; /* расположение блока сверху */
+        left: 430px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-4 {
+        top: 377px; /* расположение блока сверху */
+        left: 576px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-5 {
+        top: 380px; /* расположение блока сверху */
+        left: 719px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-6 {
+        top: 380px; /* расположение блока сверху */
+        left: 864px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-7 {
+        top: 377px; /* расположение блока сверху */
+        left: 1010px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-8 {
+        top: 572px; /* расположение блока сверху */
+        left: 40px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-9 {
+        top: 569px; /* расположение блока сверху */
+        left: 597px; /* расположение блока слева */
+    }
+
+    .gray-blue-div-10 {
+        top: 572px; /* расположение блока сверху */
+        left: 1140px; /* расположение блока слева */
+    }
+
+    .yellow-div {
+        position: absolute;
+        width: 33px;
+        height: 18px;
+        font-size: 12px;
+        background-color: #c4b65d;
+        color: #090909;
+        text-align: center;
+    }
+
+    .yellow-div-1 {
+        top: 467px; /* расположение блока сверху */
+        left: 197px; /* расположение блока слева */
+    }
+
+    .yellow-div-2 {
+        top: 467px; /* расположение блока сверху */
+        left: 346px; /* расположение блока слева */
+    }
+
+    .yellow-div-3 {
+        top: 467px; /* расположение блока сверху */
+        left: 492px; /* расположение блока слева */
+    }
+
+    .yellow-div-4 {
+        top: 461px; /* расположение блока сверху */
+        left: 641px; /* расположение блока слева */
+    }
+
+    .yellow-div-5 {
+        top: 467px; /* расположение блока сверху */
+        left: 780px; /* расположение блока слева */
+    }
+
+    .yellow-div-6 {
+        top: 467px; /* расположение блока сверху */
+        left: 925px; /* расположение блока слева */
+    }
+
+    .light-yellow-div {
+        position: absolute;
+        width: 70px;
+        height: 50px;
+        font-size: 10px;
+        background-color: #e6ce6e;
+        color: #090909;
+        text-align: center;
+    }
+
+    .light-yellow-div-1 {
+        top: 545px; /* расположение блока сверху */
+        left: 130px; /* расположение блока слева */
+    }
+
+    .light-yellow-div-2 {
+        top: 540px; /* расположение блока сверху */
+        left: 953px; /* расположение блока слева */
+    }
+
+    .purple-div {
+        position: absolute;
+        width: 27px;
+        height: 16px;
+        font-size: 12px;
+        background-color: #8302f2;
+        color: #e1e1e1;
+        text-align: center;
+    }
+
+    .purple-div-1 {
+        top: 436px; /* расположение блока сверху */
+        left: 174px; /* расположение блока слева */
+    }
+
+    .purple-div-8 {
+        top: 436px; /* расположение блока сверху */
+        left: 227px; /* расположение блока слева */
+    }
+
+    .purple-div-2 {
+        top: 436px; /* расположение блока сверху */
+        left: 322px; /* расположение блока слева */
+    }
+
+    .purple-div-9 {
+        top: 436px; /* расположение блока сверху */
+        left: 375px; /* расположение блока слева */
+    }
+
+    .purple-div-3 {
+        top: 436px; /* расположение блока сверху */
+        left: 468px; /* расположение блока слева */
+    }
+
+    .purple-div-10 {
+        top: 436px; /* расположение блока сверху */
+        left: 522px; /* расположение блока слева */
+    }
+
+    .purple-div-4 {
+        top: 430px; /* расположение блока сверху */
+        left: 617px; /* расположение блока слева */
+    }
+
+    .purple-div-11 {
+        top: 430px; /* расположение блока сверху */
+        left: 667px; /* расположение блока слева */
+    }
+
+    .purple-div-5 {
+        top: 436px; /* расположение блока сверху */
+        left: 757px; /* расположение блока слева */
+    }
+
+    .purple-div-12 {
+        top: 436px; /* расположение блока сверху */
+        left: 810px; /* расположение блока слева */
+    }
+
+    .purple-div-6 {
+        top: 436px; /* расположение блока сверху */
+        left: 903px; /* расположение блока слева */
+    }
+
+    .purple-div-13 {
+        top: 436px; /* расположение блока сверху */
+        left: 955px; /* расположение блока слева */
+    }
+
+    .purple-div-7 {
+        top: 430px; /* расположение блока сверху */
+        left: 1051px; /* расположение блока слева */
+    }
+
+    .purple-div-14 {
+        top: 430px; /* расположение блока сверху */
+        left: 1101px; /* расположение блока слева */
+    }
+</style>
+<style>
+    .progress-bar {
+        width: 13px;
+        height: 125px; /* Изменение высоты для изменения размера шкалы */
+        position: absolute;
+        background-color: #6a6a6a;
+    }
+
+    .progress {
+        width: 100%;
+        height: 50%; /* Измените этот параметр для изменения заполненности */
+        background-color: #89caea; /* Цвет заполненной части */
+        position: absolute;
+        bottom: 0;
+        border-radius: 0;
+    }
+
+    .progress-1 {
+        top: 252px;
+        left: 137px;
+    }
+
+    .progress-2 {
+        top: 252px;
+        left: 286px;
+    }
+
+    .progress-3 {
+        top: 252px;
+        left: 431px;
+    }
+
+    .progress-4 {
+        top: 249px;
+        left: 578px;
+    }
+
+    .progress-5 {
+        top: 252px;
+        left: 720px;
+    }
+
+    .progress-6 {
+        top: 252px;
+        left: 866px;
+    }
+
+    .progress-7 {
+        top: 249px;
+        left: 1011px;
+    }
+
+    .progress-bar-all {
+        width: 14px;
+        height: 70px; /* Изменение высоты для изменения размера шкалы */
+        position: absolute;
+        background-color: #6a6a6a;
+    }
+
+    .progress-all-0 {
+        top: 519px;
+        left: 14px;
+    }
+
+    .progress-all-1 {
+        top: 528px;
+        left: 571px;
+    }
+
+    .progress-all-2 {
+        top: 521px;
+        left: 1112px;
+    }
+</style>
+<script>
+function makeAjaxRequest() {
+    $.ajax({
+        url: '/ajax/get_data_for_monitoring',
+        type: 'GET',
+        success: function(response) {
+            $('#update').html(response.data);
+        },
+        error: function(error) {
+            console.log('Ошибка при получении данных');
+        }
+    });
+}
+
+// Выполнять AJAX запрос каждые 3 секунд
+setInterval(makeAjaxRequest, 3000); // 3000 миллисекунд = 3 секунд
+</script>
+{% endblock %}

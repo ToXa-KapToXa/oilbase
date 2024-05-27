@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="grid grid-body col-12">
+            <h2 class="grid-title" style="text-align: center; color: #fff">Резервуары</h2>
+            <div class="item-wrapper col-12">
+                {% if reservoirs %}
+                <div class="table-responsive">
+                    <table class="table info-table table-dark">
+                        <thead>
+                            <tr>
+                                <th>Название</th>
+                                <th>Содержимое</th>
+                                <th>Давление, бар</th>
+                                <th>Вместимость, тонна</th>
+                                <th>Заполненность, тонна</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reservoir in reservoirs %}
+                            <tr>
+                                <td>{{ reservoir['name'] }}</td>
+                                <td>{{ oils[reservoir['include']] }}</td>
+                                <td>{{ reservoir['pressure'] }}</td>
+                                <td>{{ reservoir['capacity'] }}</td>
+                                <td>
+                                    <div class="progress progress-slim">
+                                        <div class="progress-bar bg-primary progress-bar-striped" role="progressbar" style="width: {{ (reservoir['fullness'] / reservoir['capacity']) * 100 }}%" aria-valuenow="{{ reservoir['fullness'] }}" aria-valuemin="0" aria-valuemax="{{ reservoir['capacity'] }}"></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="/static/edit_reservoir/{{ reservoir['id'] }}">
+                                        <div class="btn btn-dark" style="background-color: #565656">
+                                            <i class="mdi mdi-pencil" style="color: #C9C9C9"></i>
+                                        </div>
+                                    </a>
+                                    <a href="/static/delete_reservoir/{{ reservoir['id'] }}">
+                                        <div class="btn btn-dark" style="background-color: #ff0000">
+                                            <i class="mdi mdi-delete" style="color: #C9C9C9"></i>
+                                        </div>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                    <div style="text-align: center">
+                        <b style="color: #e5e5e5;">Список резервуаров пуст!</b>
+                    </div>
+                {% endif %}
+                {% if reservoirs.__len__() < 7 %}
+                <div><a href="/static/add_reservoir">
+                    <button type="submit" class="btn btn-dark btn-block mt-2" name="add_reservoir">
+                        Добавить резервуар +
+                    </button></a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

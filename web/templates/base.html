@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" href="/static/js/vendors/iconfonts/mdi/css/materialdesignicons.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/shared/style.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/demo_1/style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/images/icon.png"/>
+    <title>{{ title }}</title>
+</head>
+<body class="header-fixed">
+    <nav class="t-header">
+        <div class="t-header-content-wrapper">
+            <div class="t-header-content">
+                {% if current_menu == 'monitoring' %}
+                    <div class="btn btn-dark" style="background-color: #565656">
+                        <a href="/static/monitoring">
+                            <i class="mdi mdi-airplay" style="color: #C9C9C9"></i>
+                            <span class="link-title" style="color: #C9C9C9; font-size: medium">Мониторинг</span>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="btn btn-dark" style="background-color: #3E3D3D; border-color: #333333">
+                        <a href="/static/monitoring">
+                            <i class="mdi mdi-airplay" style="color: #C9C9C9"></i>
+                            <span class="link-title" style="color: #C9C9C9; font-size: medium">Мониторинг</span>
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% if current_menu == 'analyze' %}
+                    <div class="btn btn-dark ml-3" style="background-color: #565656">
+                        <a href="/static/analyze">
+                            <i class="mdi mdi-chart-bar" style="color: #C9C9C9"></i>
+                            <span class="link-title" style="color: #C9C9C9; font-size: medium">Аналитика</span>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="btn btn-dark ml-3" style="background-color: #3E3D3D; border-color: #333333">
+                        <a href="/static/analyze">
+                            <i class="mdi mdi-chart-bar" style="color: #C9C9C9"></i>
+                            <span class="link-title" style="color: #C9C9C9; font-size: medium">Аналитика</span>
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% if current_menu == 'settings' %}
+                    <div class="btn btn-dark ml-3" style="background-color: #565656">
+                        <a href="/static/settings">
+                            <i class="mdi mdi-settings" style="color: #C9C9C9"></i>
+                            <span class="link-title" style="color: #C9C9C9; font-size: medium">Настройка</span>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="btn btn-dark ml-3" style="background-color: #3E3D3D; border-color: #333333">
+                        <a href="/static/settings">
+                            <i class="mdi mdi-settings" style="color: #C9C9C9"></i>
+                            <span class="link-title" style="color: #C9C9C9; font-size: medium">Настройка</span>
+                        </a>
+                    </div>
+                {% endif %}
+
+                <ul class="nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="/static/logout">
+                            <i class="mdi mdi-logout mdi-2x text-dark"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="page-body">
+    <div class="page-content-wrapper">
+        {% block content %}{% endblock %}
+
+        <footer class="footer">
+            <div class="row">
+                <div class="col-sm-12 text-center mt-5 mt-sm-0">
+                    <small class="text-muted d-block">Copyright © 2024 Sarsenov Timerlan</small>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="/static/js/vendors/js/core.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/vendors/apexcharts/apexcharts.min.js"></script>
+
+
+</body>
+</html>
